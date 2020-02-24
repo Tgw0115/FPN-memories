@@ -23587,7 +23587,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.8e-44, y: 1.1967e-41, z: 0, w: -2005392}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: NaN, w: 1.05e-43}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 50.9
@@ -32841,9 +32841,17 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_IsSelectable: 1
-  m_SelectedFaces: 
-  m_SelectedEdges: []
-  m_SelectedVertices: 
+  m_SelectedFaces: 58000000
+  m_SelectedEdges:
+  - a: 352
+    b: 353
+  - a: 354
+    b: 352
+  - a: 353
+    b: 355
+  - a: 355
+    b: 354
+  m_SelectedVertices: 60010000610100006201000063010000
 --- !u!23 &1326374290
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -43970,7 +43978,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-20728
+  m_Name: pb_Mesh17174
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
