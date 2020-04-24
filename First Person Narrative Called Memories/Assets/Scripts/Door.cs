@@ -8,7 +8,9 @@ public class Door : InteractiveObject
     [SerializeField]
     private InventoryObject key;
 
-
+    [SerializeField]
+    private bool consumesKey;
+    
     [SerializeField]
     private string lockedDisplayText = "Locked";
 
@@ -32,7 +34,7 @@ public class Door : InteractiveObject
                 toReturn = base.DisplayText;
             return toReturn;
         }
-    }
+    } 
 
     private bool HasKey => PlayerInventory.InventoryObject.Contains(key);
     private Animator animator;
@@ -74,11 +76,20 @@ public class Door : InteractiveObject
                 animator.SetBool(shouldOpenAnimParameter, true);
                 displayText = string.Empty;
                 isOpen = true;
+                UnlockDoor();
+ 
             }
 
             base.InteractWith(); //This play sounds effect
         }
 
+    }
+
+    private void UnlockDoor()
+    {
+        isLocked = false;
+        if (key != null && consumesKey)
+            PlayerInventory.InventoryObject.Remove(key);
     }
 
 }
