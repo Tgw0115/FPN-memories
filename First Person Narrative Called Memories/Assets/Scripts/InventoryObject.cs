@@ -6,6 +6,14 @@ public class InventoryObject : InteractiveObject
 {
     [SerializeField]
     private string objectName = nameof(InventoryObject);
+
+    [TextArea(3,8)]
+    [SerializeField]
+    private string description;
+
+    [SerializeField]
+    private Sprite icon;
+
     public string ObjectName => objectName;
     private  new Renderer renderer;
     private new Collider collider;
@@ -24,7 +32,7 @@ public class InventoryObject : InteractiveObject
     public override void InteractWith()
     {
         base.InteractWith();
-        PlayerInventory.InventoryObjects.Add(this);
+        PlayerInventory.InventoryObject.Add(this);
         renderer.enabled = false;
         collider.enabled = false;
     }
