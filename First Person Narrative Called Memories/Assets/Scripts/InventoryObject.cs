@@ -17,11 +17,18 @@ public class InventoryObject : InteractiveObject
     public string ObjectName => objectName;
     private  new Renderer renderer;
     private new Collider collider;
+    public Sprite Icon => icon;
+    public string Description => description;
+    private Renderer[] childRenderers;
+    private Collider[] childColliders;
 
     private void Start ()
     {
         renderer = GetComponent<Renderer>();
         collider = GetComponent<Collider>();
+
+        childRenderers = GetComponentsInChildren<Renderer>();
+        childColliders = GetComponentsInChildren<Collider>();
     }
 
     public InventoryObject()
@@ -33,7 +40,29 @@ public class InventoryObject : InteractiveObject
     {
         base.InteractWith();
         PlayerInventory.InventoryObject.Add(this);
+        InventoryMenu.Instance.AddItemToMenu(this);
         renderer.enabled = false;
+        DisableChildRenderers();
         collider.enabled = false;
+        DisableChildColliders();
+        Debug.Log($"Inventory menu game object name {InventoryMenu.Instance.name}");
     }
+
+
+    void DisableChildRenderers()
+    {
+        foreach (Renderer col in childRenderers)
+        {
+            col.enabled = false;
+        }
+    }
+
+    void DisableChildColliders()
+    {
+        foreach (Collider col in childColliders)
+        {
+            col.enabled = false;
+        }
+    }
+
 }
