@@ -20,27 +20,28 @@ public class Door : InteractiveObject
     [SerializeField]
     private AudioClip openAudioClip;
 
-    //public override string DisplayText => isLocked ? lockedDisplayText :  base.DisplayText;
+    public override string DisplayText => isLocked ? lockedDisplayText :  base.DisplayText;
 
-    public override string DisplayText
-    {
-        get
-        {
-            string toReturn;
 
-            if (isLocked)
-                toReturn = HasKey ? $"Use {key.ObjectName}" : lockedDisplayText;
-            else
-                toReturn = base.DisplayText;
-            return toReturn;
-        }
-    } 
+    //public override string DisplayText
+    //{
+    //    get
+    //    {
+    //        string toReturn;
+
+    //        if (isLocked)
+    //            toReturn = HasKey ? $"Use {key.ObjectName}" : lockedDisplayText;
+    //        else
+    //            toReturn = base.DisplayText;
+    //        return toReturn;
+    //    }
+    //} 
 
     private bool HasKey => PlayerInventory.InventoryObject.Contains(key);
     private Animator animator;
     private bool isOpen = false;
     private bool isLocked;
-    private int shouldOpenAnimParameter = Animator.StringToHash(nameof(shouldOpenAnimParameter));
+    //private bool shouldOpen = Animator.StringToHash(nameof(shouldOpen));
     /// <summary>
     /// Constructor to initalize displayText in editor.
     /// </summary>
@@ -63,6 +64,7 @@ public class Door : InteractiveObject
 
     public override void InteractWith()
     {
+        //HasKey = checkForKey();
         if (!isOpen)
         {
 
@@ -70,14 +72,18 @@ public class Door : InteractiveObject
             {
                 audioSource.clip = lockedAudioClip;
             }
-            else
+            else if (isLocked && HasKey)
             {
                 audioSource.clip = openAudioClip;
-                animator.SetBool(shouldOpenAnimParameter, true);
+                animator.SetBool("shouldOpen", true);
                 displayText = string.Empty;
                 isOpen = true;
                 UnlockDoor();
  
+            }
+            else
+            {
+                audioSource.clip = lockedAudioClip;
             }
 
             base.InteractWith(); //This play sounds effect
@@ -91,5 +97,20 @@ public class Door : InteractiveObject
         if (key != null && consumesKey)
             PlayerInventory.InventoryObject.Remove(key);
     }
+
+    //private bool CheckForKey()
+    //{
+    //    foreach(InventoryObject i in PlayerInventory.InventoryObject)
+    //    {
+    //        if(i.ObjectName = "Door Key")
+    //        {
+    //            return true;
+    //        }
+    //        else
+    //        {
+    //            return false;
+    //        }
+    //    }
+    //}
 
 }
